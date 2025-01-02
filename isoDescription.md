@@ -35,6 +35,7 @@ Additionally, acpi.sys was replaced in order to avoid 0xA5 BSoD.
 
 ### Tweaks:
 My goal was to balance between originality and convenience. Anyway, here's the list of other modifications:
+* The default UAC mode has been set to "Notify me only when apps try to make changes to my computer _(do not dim my desktop)_";
 * The Disk Defragmenter service, Prefetch and Superfetch have been disabled to take care of the TBW resource of SSDs;
 * Microsoft XPS Document Writer, Tablet PC Components and XPS Viewer have been disabled;
 * Explorer tweaks:
