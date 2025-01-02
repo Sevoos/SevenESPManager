@@ -48,10 +48,10 @@ My goal was to balance between originality and convenience. Anyway, here's the l
 * Registry tweaks:
   * BIOS time is now synchronized with UTC time not depending on the timezone: **[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TimeZoneInformation] "RealTimeIsUniversal"=dword:00000001**
 
-### Download the iso
+## Download the iso
 The Internet Archive: _not implemented yet_
 
 FebBox: https://febbox.com/share/MQFS5nMY
 
-### Contribute to downloading
+## Contribute to downloading
 _not implemented yet_
