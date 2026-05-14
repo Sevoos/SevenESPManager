@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set "version=24.12-a"
+set "version=26-05-a"
 set "exlamation=!"
 echo Welcome to SevenESPManager v!version! by Sevoos^!
 echo GitHub: https://www.github.com/Sevoos/SevenESPManager
@@ -10,7 +10,7 @@ echo GitHub: https://www.github.com/Sevoos/SevenESPManager
 set "main=%~dp0"
 set "findstr=%main%bin\findstr.exe"
 set "sevenzip=%main%bin\7z.exe"
-set "flashFile=%main%bootmgfw.flashboot.efi"
+set "flashFile=%main%bootmgfw.flashboot-3.4b.efi"
 
 :: The temporary directory: X: for WinPE and C: for a regular installation
 if exist "X:\Windows\Temp" (
