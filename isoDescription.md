@@ -1,58 +1,62 @@
-# Windows 7 build 7601.24545
-## Version v24.12-a
-windows_7_build.7601.24545_v24.12-a.iso
+# Windows 7 with drivers from 7UPv64R and January 2026 updates
+## Version v26-05-b
+windows_7_7UPv64R_Jan-2026-updates_v26-05-b.iso
 
-This is an iso image of Windows 7, based on [this vanilla one](https://archive.org/details/en_windows_7_ultimate_with_sp1_x64_dvd_u_677332_202006). Of course, it's Ultimate, x64, en_US.
+This is an iso image of Windows 7, based on this vanilla one: en_windows_7_ultimate_with_sp1_x64_dvd_u_677332.iso
+The base image can be donwloaded from:
+- [Internet Archive](https://archive.org/details/en_windows_7_ultimate_with_sp1_x64_dvd_u_677332_202412);
+- [Massgrave](https://massgrave.dev/windows_7_links):
+  - [Buzzheavier](https://buzzheavier.com/lllag2h2ucql);
+  - [ZeroFS](https://zerofs.link/f/cY23XCDMAWMRcTTcHrLopD/).
+
+Obviously, it's x64, Ultimate, en_US.
+
 ## The list of changes:
+### The Preinstallation Environment:
+The whole content of the iso image (except the install.wim file) has been taken from a Windows 10 iso image (to be exact, [this](https://buzzheavier.com/yhggy3l1e5oq) one) for seamless UEFI booting of WinPE.
 ### Updates:
-The install.wim file has been processed with [UpdatePack7R2](https://blog.simplix.info/updatepack7r2/), which is developed by **Simplix**🇺🇦. The exact version of that utility was **v20.1.17**. 
-
-As the official website doesn't provide older releases, here's a magnet link to the version that was used:
-
-magnet:?xt=urn:btih:d4b46e47e673c5fcd31c00045397b0f2d49c81f2&dn=UpdatePack7R2-20.1.17.exe
-
-I used that specific version in order for the iso image to have 2020-01 updates, therefore having build number 7601.24545 - not higher - which is required for compatibility with [DotExe](https://dotexe.cf)'s Windows 7 Extended Kernel (the latest version can be found in their Discord server).
+The install.wim file has been processed with [UpdatePack7R2](https://blog.simplix.info/updatepack7r2), which was developed by **Simplix**. The version of that tool is its latest (and last) version, 26.1.15. Therefore, it includes all the updates for Windows 7 (including Server 2008 R2) released by Microsoft (but all the unwanted changes, including installation of Microsoft Edge, are **excluded**, as UpdatePack7R2 is designed to work like that).
 
 ### Drivers:
-The drivers that have been slipstreamed into both install.wim and boot.wim files were selectively taken from [7Updater](https://www.sevenforums.com/installation-setup/415754-update-your-win-7-installation-media.html), 7UPv64R to be exact, which is developed by SIW2. Here's the list of directories with the drivers that were used (DRIVERS.7z):
-1. AMD
-2. i225v-7MOD
-3. Intel LAN
-4. IntelStorage
-5. msnvmex64
-6. REALTEK_12222021x64
-7. XHCI-UASPx64
-     
-The list of the directories that were excluded:
+The drivers that have been slipstreamed into the install.wim file were selectively taken from the [7Updater](https://www.sevenforums.com/installation-setup/415754-update-your-win-7-installation-media.html) tool, version 7UPv64R (the last one), which was developed by **SIW2**. Here's the list of those driver directories that were included (DRIVERS.7z):
 1. ACPITIME-sha2
-2. Bluetooth
-3. e1c62x64.inf_amd64
-4. emmc-7x64-BH778
-5. samsung-nvme3-mod
-
-For some unknown reason, provided that all the directories are used, the iso doesn't work, getting stuck on disk.sys without a BSoD.
-Additionally, acpi.sys was replaced in order to avoid 0xA5 BSoD.
+2. AMD
+3. Bluetooth
+4. e1c62x64.inf_amd64
+5. emmc-7x64-BH778
+6. i225v-7MOD
+7. Intel LAN
+8. IntelStorage
+9. msnvmex64
+10. REALTEK_12222021x64
+11. XHCI-UASPx64
+     
+The only driver directory that was excluded was **samsung-nvme3-mod**, because if it's included, the 2nd stage of installation might freeze on loading disk.sys without an apparent reason.
+     
+In addition, the acpi.sys file has been replaced to avoid the 0xA5 BSoD.
 
 ### Tweaks:
-My goal was to balance between originality and convenience. Anyway, here's the list of other modifications:
-* The default UAC mode has been set to "Notify me only when apps try to make changes to my computer _(do not dim my desktop)_";
-* The Disk Defragmenter service, Prefetch and Superfetch have been disabled to take care of the TBW resource of SSDs;
-* Microsoft XPS Document Writer, Tablet PC Components and XPS Viewer have been disabled;
-* Explorer tweaks:
-  * All the icons in the tray are now shown by default;
-  * AutoPlay has been disabled;
-  * "Show extensions for known file types" is now enabled by default;
-  * "Show hidden files, folders and drives" is now enabled by deault;
-  * The hibernation item has been removed from the shutdown submenu;
-* The initial size of pagefile.sys is 16 MiB, the max value is 1024;
-* The initial size of hiberfil.sys has been reduced to 50% of RAM from 75%, subsequently deleted before first logon;
+
+My goal was to balance originality and convenience. Anyway, here's the list of other modifications:
+
 * Registry tweaks:
-  * BIOS time is now synchronized with UTC time not depending on the timezone: **[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TimeZoneInformation] "RealTimeIsUniversal"=dword:00000001**
+  * BIOS time is now synchronized with UTC time not depending on the timezone: **[HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation] "RealTimeIsUniversal"=dword:00000001**
+* Post-Setup:
+  * Before logon:
+    * The hibernation file is disabled: cmd.exe /c powercfg -h off
+* Explorer tweaks:
+  * Enabled by default:
+    * Show extensions for known file types;
+    * Show hidden files, folders and drives;
+    * Taskbar - Always show all icons and notifications on taskbar;
+    * Taskbar - Display tray items.
+* Disabled services (obviously, they can be enabled in services.msc):
+  * Disk Defragmenter - to achieve optimal behavior for using an SSD instead of an HDD.
 
 ## Download the iso
-The Internet Archive: _not implemented yet_
 
-FebBox: https://febbox.com/share/MQFS5nMY
+* The Internet Archive: _not implemented yet_
+* [Google Drive](https://drive.google.com/file/d/1Sxe_Br9p7jgpKxEoavwPbcie9Bv_iBdW/view)
 
 ## Contribute to downloading
-_not implemented yet_
+_Not implemented yet_
