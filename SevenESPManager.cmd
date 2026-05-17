@@ -19,11 +19,8 @@ if exist "X:\Windows\Temp" (
     set "tempPath=C:\Windows\Temp"
 )
 
-:: Checking if bootmgfw.flashboot.efi exists
-
-
 if not exist "%flashFile%" (
-    echo ERROR: bootmgfw.flashboot.efi not found in the main directory.
+    echo ERROR: %flashFile% not found in the main directory.
     pause
     exit /b
 )
@@ -93,8 +90,6 @@ if not exist "!bootFile!" (
     goto :SelectVolume
 )
 
-:: Calculating SHA-256 checksums of bootmgfw.efi and bootmgfw.flashboot.efi
-
 set "certutil=%main%bin\certutil.exe"
 for /f "skip=1 tokens=*" %%a in ('%certutil% -hashfile "%bootFile%" SHA256') do (
     set bootmgfwChecksum=%%a
@@ -139,7 +134,7 @@ if "!bootmgfwChecksum!"=="!flashbootChecksum!" (
     set /p "userInput=Do you want to replace the bootloader with the Flashboot one? (Y/N): "
     if /i "!userInput!"=="Y" (
         rename "!bootFile!" bootmgfw.original.efi
-        copy "%main%\bootmgfw.flashboot.efi" "!bootFile!"
+        copy "%flashFile%" "!bootFile!"
         echo Done
         pause
         exit /b
